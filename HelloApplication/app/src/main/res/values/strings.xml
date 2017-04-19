@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HelloApplication</string>
     <string name="olaMundo">Olá mundo</string>
+    <string name="usuario">Usuário</string>
+    <string name="senha">Senha</string>
+    <string name="login">Login</string>
 </resources>
