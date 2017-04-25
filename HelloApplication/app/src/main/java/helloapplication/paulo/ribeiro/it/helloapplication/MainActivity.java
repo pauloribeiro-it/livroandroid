@@ -27,9 +27,7 @@ public class MainActivity extends DebugActivity {
 
                 if ("paulo".equals(login) && "123".equals(senha)) {
                     Intent intent = new Intent(getContext(),BemVindoActivity.class);
-                    Bundle params = new Bundle();
-                    params.putString("nome","Paulo Ribeiro");
-                    intent.putExtras(params);
+                    intent.putExtra("nome","Paulo Ribeiro");
                     startActivity(intent);
                     alert("Bem-vindo, login realizado com sucesso.");
                 } else {
