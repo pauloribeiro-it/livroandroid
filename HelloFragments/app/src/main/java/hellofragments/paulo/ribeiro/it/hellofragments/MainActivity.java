@@ -1,26 +1,35 @@
 package hellofragments.paulo.ribeiro.it.hellofragments;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 
 import fragments.Fragment1;
+import fragments.Fragment2;
+import fragments.Fragment3;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(savedInstanceState == null){
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment1 frag1 = new Fragment1();
-            ft.add(R.id.layoutFrag,frag1,"Fragment1");
-            ft.commit();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        }
+//        //Tab 1
+        ActionBar.Tab tab1 = actionBar.newTab().setText("Frag 1");
+        tab1.setTabListener(new TabListener(this,new Fragment1()));
+        actionBar.addTab(tab1);
+//
+        //Tab 2
+        ActionBar.Tab tab2 = actionBar.newTab().setText("Frag 2");
+        tab2.setTabListener(new TabListener(this, new Fragment2()));
+        actionBar.addTab(tab2);
 
+//        //Tab 3
+        ActionBar.Tab tab3 = actionBar.newTab().setText("Frag 3");
+        tab3.setTabListener(new TabListener(this, new Fragment3()));
+        actionBar.addTab(tab3);
     }
 }
