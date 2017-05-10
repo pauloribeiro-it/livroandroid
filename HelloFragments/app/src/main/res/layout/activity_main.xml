@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hellofragments.paulo.ribeiro.it.hellofragments.MainActivity"
+    android:id="@+id/layoutFrag">
+<!--
+    <fragment android:id="@+id/frag1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="fragments.Fragment1"
+        tools:layout="@layout/fragment_fragment1">
+    </fragment>
+-->
+</FrameLayout>
