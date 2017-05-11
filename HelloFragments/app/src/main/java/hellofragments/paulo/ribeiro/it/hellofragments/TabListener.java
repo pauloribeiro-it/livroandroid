@@ -1,8 +1,7 @@
 package hellofragments.paulo.ribeiro.it.hellofragments;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 
 /**
@@ -10,27 +9,23 @@ import android.support.v7.app.ActionBar;
  */
 
 public class TabListener implements ActionBar.TabListener{
-    private Context context;
-    private Fragment frag;
+    private ViewPager viewPager;
+    private int idx;
 
-    public TabListener(Context context, Fragment frag){
-        this.context = context;
-        this.frag = frag;
+    public TabListener(ViewPager viewPager, int idx){
+        this.viewPager = viewPager;
+        this.idx = idx;
     }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        ft.replace(R.id.layoutFrag,this.frag,null);
+        viewPager.setCurrentItem(idx);
     }
 
     @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {}
 
     @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {}
 
 }

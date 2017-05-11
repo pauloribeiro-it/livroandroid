@@ -1,35 +1,46 @@
 package hellofragments.paulo.ribeiro.it.hellofragments;
-
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
-import fragments.Fragment1;
-import fragments.Fragment2;
-import fragments.Fragment3;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-//        //Tab 1
-        ActionBar.Tab tab1 = actionBar.newTab().setText("Frag 1");
-        tab1.setTabListener(new TabListener(this,new Fragment1()));
-        actionBar.addTab(tab1);
-//
-        //Tab 2
-        ActionBar.Tab tab2 = actionBar.newTab().setText("Frag 2");
-        tab2.setTabListener(new TabListener(this, new Fragment2()));
-        actionBar.addTab(tab2);
+        // ViewPager
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager()));
 
-//        //Tab 3
-        ActionBar.Tab tab3 = actionBar.newTab().setText("Frag 3");
-        tab3.setTabListener(new TabListener(this, new Fragment3()));
-        actionBar.addTab(tab3);
+        // Configura as Tabs
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.addTab(actionBar.newTab().setText("Frag 1").setTabListener(new TabListener(viewPager, 0)));
+        actionBar.addTab(actionBar.newTab().setText("Frag 2").setTabListener(new TabListener(viewPager, 1)));
+        actionBar.addTab(actionBar.newTab().setText("Frag 3").setTabListener(new TabListener(viewPager, 2)));
+
+        // Se o ViewPager troca de página, atualiza a Tab.
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int idx) {
+                // Se fizer swipe no ViewPager, atualiza a tab
+                actionBar.setSelectedNavigationItem(idx);
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+
+        });
     }
 }
