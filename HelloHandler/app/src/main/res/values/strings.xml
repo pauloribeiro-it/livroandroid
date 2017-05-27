@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HelloHandler</string>
+    <string name="env_msg">Enviar Mensagem</string>
+</resources>
