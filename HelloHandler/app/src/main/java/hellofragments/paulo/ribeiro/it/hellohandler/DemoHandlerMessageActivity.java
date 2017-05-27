@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class DemoHandlerMessageActivity extends AppCompatActivity {
 
     protected static final int MENSAGEM_TESTE=1;
-    private Handler handler = new TesteHandler();
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,21 +20,14 @@ public class DemoHandlerMessageActivity extends AppCompatActivity {
         findViewById(R.id.btEnviar).setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Message msg = new Message();
-                msg.what = MENSAGEM_TESTE;
-                handler.sendMessageDelayed(msg,3000);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getBaseContext(),"A mensagem chegou!", Toast.LENGTH_SHORT).show();
+                    }
+                },3000);
             }
         });
-    }
-    private class TesteHandler extends Handler{
-        @Override
-        public void handleMessage(Message msg) {
-            switch(msg.what){
-                case MENSAGEM_TESTE:
-                    Toast.makeText(getBaseContext(),"A mensagem chegou!", Toast.LENGTH_SHORT).show();
-                break;
-            }
-        }
     }
 }
 
