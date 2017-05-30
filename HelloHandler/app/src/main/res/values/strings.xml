@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HelloHandler</string>
     <string name="env_msg">Enviar Mensagem</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
