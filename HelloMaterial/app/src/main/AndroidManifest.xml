@@ -18,7 +18,11 @@
         </activity>
         <activity android:name=".ExemploElevationActivity" />
         <activity android:name=".ExemploRipple" />
-        <activity android:name=".ExemploFloatingButton"></activity>
+        <activity android:name=".ExemploFloatingButton" />
+        <activity
+            android:name=".ExemploCardView"
+            android:label="@string/title_activity_exemplo_card_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
