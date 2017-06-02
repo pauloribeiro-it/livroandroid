@@ -2,4 +2,9 @@
     <string name="app_name">HelloMaterial</string>
     <string name="hello_world">Hello World</string>
     <string name="title_activity_exemplo_card_view">ExemploCardView</string>
+    <string name="title_activity_exemplo_recycle_view">ExemploRecycleViewActivity</string>
+    <string name="title_activity_planeta_adapter">PlanetaAdapter</string>
+    <string name="linear_layout">Linear</string>
+    <string name="grid_layout">Grid</string>
+    <string name="transition_key">qualquer_coisa_aqui</string>
 </resources>
