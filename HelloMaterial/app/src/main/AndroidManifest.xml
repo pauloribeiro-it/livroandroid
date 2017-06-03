@@ -21,12 +21,14 @@
         <activity android:name=".ExemploFloatingButton" />
         <activity
             android:name=".ExemploCardView"
-            android:label="@string/title_activity_exemplo_card_view"
-           />
+            android:label="@string/title_activity_exemplo_card_view" />
         <activity
             android:name=".ExemploRecycleViewActivity"
-            android:label="@string/title_activity_exemplo_recycle_view"
-            />
+            android:label="@string/title_activity_exemplo_recycle_view" />
+        <activity
+            android:name=".ExemploRevealEffectActivity"
+            android:label="@string/title_activity_exemplo_reveal_effect"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

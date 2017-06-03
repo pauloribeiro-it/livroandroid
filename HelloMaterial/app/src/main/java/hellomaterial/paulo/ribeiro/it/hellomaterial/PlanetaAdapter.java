@@ -37,7 +37,7 @@ public class PlanetaAdapter extends RecyclerView.Adapter<PlanetaAdapter.Planetas
         // Infla a view do layout
         View view = LayoutInflater.from(context).inflate(R.layout.adapter_planeta, viewGroup, false);
         // Cria a classe do ViewHolder
-        PlanetasViewHolder holder = new \(view);
+        PlanetasViewHolder holder = new PlanetasViewHolder(view);
         return holder;
     }
 

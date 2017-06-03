@@ -7,4 +7,5 @@
     <string name="linear_layout">Linear</string>
     <string name="grid_layout">Grid</string>
     <string name="transition_key">qualquer_coisa_aqui</string>
+    <string name="title_activity_exemplo_reveal_effect">ExemploRevealEffectActivity</string>
 </resources>
