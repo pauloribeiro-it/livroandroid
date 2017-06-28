@@ -1,6 +1,10 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -11,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import hellomaterial.paulo.ribeiro.it.R;
+import hellomaterial.paulo.ribeiro.it.fragments.CarrosFragment;
 
 /**
  * Created by paulo on 13/06/17.
@@ -18,6 +23,15 @@ import hellomaterial.paulo.ribeiro.it.R;
 
 public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
     protected DrawerLayout drawerLayout;
+
+    @Override
+    protected void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setUpToolbar();
+        setupNavDrawer();
+        replaceFragment(CarrosFragment.newInstance(R.string.carros));
+    }
 
     protected void setUpToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -34,7 +48,7 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        if(navigationView != null && drawerLayout !=null){
+        if(navigationView != null && drawerLayout != null){
             setNavViewValues(navigationView,R.string.nav_drawer_username,R.string.nav_drawer_email,R.mipmap.ic_launcher);
             navigationView.setNavigationItemSelectedListener(
                     new NavigationView.OnNavigationItemSelectedListener(){
@@ -86,23 +100,27 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
     private void onNavDrawerItemSelected(MenuItem menuItem){
         switch(menuItem.getItemId()){
             case R.id.nav_item_carros_todos:
-                toast("Clicou em carros");
+                replaceFragment(CarrosFragment.newInstance(R.string.carros));
                 break;
             case R.id.nav_item_carros_classicos:
-                toast("Clicou em carros clássicos");
+                replaceFragment(CarrosFragment.newInstance(R.string.classicos));
                 break;
             case R.id.nav_item_carros_esportivos:
-                toast("Clicou em carros esportivos");
+                replaceFragment(CarrosFragment.newInstance(R.string.esportivos));
                 break;
             case R.id.nav_item_carros_luxo:
-                toast("Clicou em carros luxo");
+                replaceFragment(CarrosFragment.newInstance(R.string.luxo));
                 break;
             case R.id.nav_item_site_livro:
-                snack(drawerLayout,"Clicou em site do livro");
+                replaceFragment(new CarrosFragment());
                 break;
             case R.id.nav_item_settings:
                 toast("Clicou em configurações");
                 break;
         }
+    }
+
+    protected void replaceFragment(Fragment flag){
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,flag,"TAG").commit();
     }
 }
