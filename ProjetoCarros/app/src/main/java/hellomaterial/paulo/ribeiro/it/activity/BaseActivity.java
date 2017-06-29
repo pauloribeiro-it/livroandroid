@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.fragments.CarrosFragment;
+import hellomaterial.paulo.ribeiro.it.fragments.SiteLivroFragment;
 
 /**
  * Created by paulo on 13/06/17.
@@ -112,7 +113,7 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
                 replaceFragment(CarrosFragment.newInstance(R.string.luxo));
                 break;
             case R.id.nav_item_site_livro:
-                replaceFragment(new CarrosFragment());
+                replaceFragment(new SiteLivroFragment());
                 break;
             case R.id.nav_item_settings:
                 toast("Clicou em configurações");
