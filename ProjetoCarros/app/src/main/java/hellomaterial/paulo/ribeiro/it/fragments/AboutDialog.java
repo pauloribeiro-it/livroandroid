@@ -37,7 +37,7 @@ public class AboutDialog extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         SpannableStringBuilder aboutBody = new SpannableStringBuilder();
         String versionName = AndroidUtils.getVersionName(getActivity());
-       // aboutBody.append(Html.fromHtml(getString(R.string.about_dialog_text,versionName)));
+        aboutBody.append(Html.fromHtml(getString(R.string.about_dialog_text,versionName)));
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         TextView view = (TextView) inflater.inflate(R.layout.dialog_about,null);
