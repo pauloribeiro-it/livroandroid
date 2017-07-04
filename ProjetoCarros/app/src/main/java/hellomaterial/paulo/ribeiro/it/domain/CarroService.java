@@ -18,7 +18,7 @@ public class CarroService {
             Carro c = new Carro();
             c.nome = "Carro "+tipoString +": "+ i;
             c.desc = "Desc " + i;
-            c.urlFoto = "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari+FF.png";
+            c.urlFoto = "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png";
             carros.add(c);
         }
         return carros;

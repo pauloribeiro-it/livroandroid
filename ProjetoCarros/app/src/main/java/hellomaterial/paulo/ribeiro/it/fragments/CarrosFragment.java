@@ -50,8 +50,6 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-        //TextView text = (TextView) view.findViewById(R.id.text);
-        //text.setText("Carros "+getString(tipo));
         return view;
     }
 
