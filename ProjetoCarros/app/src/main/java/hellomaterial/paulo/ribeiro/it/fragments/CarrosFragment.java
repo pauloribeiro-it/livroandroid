@@ -1,5 +1,6 @@
 package hellomaterial.paulo.ribeiro.it.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import hellomaterial.paulo.ribeiro.it.R;
+import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
 import hellomaterial.paulo.ribeiro.it.adapter.CarroAdapter;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroService;
@@ -66,7 +68,9 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
             @Override
             public void onClickCarro(View view, int idx) {
                 Carro c = carros.get(idx);
-                Toast.makeText(getContext(),"Carro: "+c.nome,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), CarroActivity.class);
+                intent.putExtra("carro",c);
+                startActivity(intent);
             }
         };
     }
