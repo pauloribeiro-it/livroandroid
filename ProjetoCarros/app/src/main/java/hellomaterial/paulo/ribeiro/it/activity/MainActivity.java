@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.fragments.AboutDialog;
+import hellomaterial.paulo.ribeiro.it.fragments.CarrosTabFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         setUpToolbar();
         setupNavDrawer();
+        replaceFragment(new CarrosTabFragment());
     }
 
     @Override

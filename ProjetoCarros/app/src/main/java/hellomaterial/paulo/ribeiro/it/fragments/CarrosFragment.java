@@ -2,14 +2,12 @@ package hellomaterial.paulo.ribeiro.it.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,7 +16,6 @@ import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.adapter.CarroAdapter;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroService;
-import livroandroid.lib.fragment.*;
 
 public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
 
