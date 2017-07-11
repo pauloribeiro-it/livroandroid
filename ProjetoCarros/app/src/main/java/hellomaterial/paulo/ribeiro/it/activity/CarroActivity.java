@@ -24,4 +24,8 @@ public class CarroActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected boolean chamaReplace() {
+        return false;
+    }
 }

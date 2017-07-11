@@ -26,13 +26,19 @@ import hellomaterial.paulo.ribeiro.it.fragments.SiteLivroFragment;
 public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
     protected DrawerLayout drawerLayout;
 
+    protected boolean chamaReplace(){
+        return true;
+    }
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpToolbar();
         setupNavDrawer();
-        replaceFragment(CarrosFragment.newInstance(R.string.carros));
+        if(chamaReplace()) {
+            replaceFragment(new CarrosTabFragment());
+        }
     }
 
     protected void setUpToolbar(){

@@ -75,7 +75,7 @@ public class CarroAdapter extends RecyclerView.Adapter<CarroAdapter.CarrosViewHo
     }
 
     public interface CarrosOnClickListener{
-        public void onClickCarro(View view, int idx);
+        void onClickCarro(View view, int idx);
     }
 
     public static class CarrosViewHolder extends RecyclerView.ViewHolder{
