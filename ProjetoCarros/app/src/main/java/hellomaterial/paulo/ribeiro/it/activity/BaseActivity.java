@@ -129,6 +129,6 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
     }
 
     protected void replaceFragment(Fragment flag){
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,flag,"TAG").commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.container,flag,"TAG").commit();
     }
 }

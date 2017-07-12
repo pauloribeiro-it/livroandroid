@@ -1,7 +1,8 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
 import android.os.Bundle;
-import android.util.Log;
+
+import org.parceler.Parcels;
 
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;

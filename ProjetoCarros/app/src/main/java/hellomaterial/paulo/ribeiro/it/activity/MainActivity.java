@@ -1,13 +1,15 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-
+import android.view.View;
 import hellomaterial.paulo.ribeiro.it.R;
+import hellomaterial.paulo.ribeiro.it.adapter.TabsAdapter;
 import hellomaterial.paulo.ribeiro.it.fragments.AboutDialog;
-import hellomaterial.paulo.ribeiro.it.fragments.CarrosTabFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,7 +25,14 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         setUpToolbar();
         setupNavDrawer();
-        replaceFragment(new CarrosTabFragment());
+        setupViewPagerTabs();
+        //replaceFragment(new CarrosTabFragment());
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snack(v, "Exemplo de FAB button");
+            }
+        });
     }
 
     @Override
@@ -34,5 +43,16 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setupViewPagerTabs(){
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new TabsAdapter(getContext(),getSupportFragmentManager()));
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+        int cor = ContextCompat.getColor(getContext(),R.color.white);
+        tabLayout.setTabTextColors(cor,cor);
     }
 }
