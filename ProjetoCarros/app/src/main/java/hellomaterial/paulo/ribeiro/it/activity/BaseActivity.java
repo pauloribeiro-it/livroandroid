@@ -1,8 +1,7 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -106,21 +105,25 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity{
     }
     //Trata o evento do menu lateral
     private void onNavDrawerItemSelected(MenuItem menuItem){
+        Intent intent = new Intent(getContext(),CarrosActivity.class);
         switch(menuItem.getItemId()){
             case R.id.nav_item_carros_todos:
-                replaceFragment(new CarrosTabFragment());
+             //   replaceFragment(new CarrosTabFragment());
                 break;
             case R.id.nav_item_carros_classicos:
-                replaceFragment(CarrosFragment.newInstance(R.string.classicos));
+                intent.putExtra("tipo",R.string.classicos);
+                startActivity(intent);
                 break;
             case R.id.nav_item_carros_esportivos:
-                replaceFragment(CarrosFragment.newInstance(R.string.esportivos));
+                intent.putExtra("tipo",R.string.esportivos);
+                startActivity(intent);
                 break;
             case R.id.nav_item_carros_luxo:
-                replaceFragment(CarrosFragment.newInstance(R.string.luxo));
+                intent.putExtra("tipo",R.string.luxo);
+                startActivity(intent);
                 break;
             case R.id.nav_item_site_livro:
-                replaceFragment(new SiteLivroFragment());
+               startActivity(new Intent(getContext(),SiteLivroActivity.class));
                 break;
             case R.id.nav_item_settings:
                 toast("Clicou em configurações");

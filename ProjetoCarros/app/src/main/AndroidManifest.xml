@@ -21,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.CarroActivity"
             android:parentActivityName=".activity.MainActivity">
@@ -29,6 +28,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity.CarrosActivity"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity"></meta-data>
+        </activity>
+        <activity android:name=".activity.SiteLivroActivity"></activity>
     </application>
 
 </manifest>

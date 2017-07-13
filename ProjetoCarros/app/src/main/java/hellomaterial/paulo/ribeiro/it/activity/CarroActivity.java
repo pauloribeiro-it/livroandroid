@@ -1,6 +1,9 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -18,6 +21,8 @@ public class CarroActivity extends BaseActivity {
         Carro c = getIntent().getParcelableExtra("carro");
         getSupportActionBar().setTitle(c.nome);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ImageView appBarImg = (ImageView) findViewById(R.id.appBarImg);
+        Picasso.with(getContext()).load(c.urlFoto).into(appBarImg);
         if(savedInstanceState == null){
             CarroFragment frag = new CarroFragment();
             frag.setArguments(getIntent().getExtras());
