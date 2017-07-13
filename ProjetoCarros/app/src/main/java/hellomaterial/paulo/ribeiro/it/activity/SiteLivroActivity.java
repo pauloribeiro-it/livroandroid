@@ -2,7 +2,7 @@ package hellomaterial.paulo.ribeiro.it.activity;
 
 import android.os.Bundle;
 import hellomaterial.paulo.ribeiro.it.R;
-import hellomaterial.paulo.ribeiro.it.fragments.CarrosFragment;
+import hellomaterial.paulo.ribeiro.it.fragments.SiteLivroFragment;
 
 public class SiteLivroActivity extends BaseActivity {
 
@@ -13,10 +13,10 @@ public class SiteLivroActivity extends BaseActivity {
         setUpToolbar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Título
-        getSupportActionBar().setTitle(getString(getIntent().getIntExtra("tipo", 0)));
+        getSupportActionBar().setTitle("WebView");
         // Adiciona o fragment com o mesmo Bundle (args) da intent
         if (savedInstanceState == null) {
-            CarrosFragment frag = new CarrosFragment();
+            SiteLivroFragment frag = new SiteLivroFragment();
             frag.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.container, frag).commit();
         }

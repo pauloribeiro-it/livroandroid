@@ -21,4 +21,9 @@ public class CarrosActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.container,frag).commit();
         }
     }
+
+    @Override
+    protected boolean chamaReplace() {
+        return false;
+    }
 }
