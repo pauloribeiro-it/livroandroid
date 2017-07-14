@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.List;
 
 import hellomaterial.paulo.ribeiro.it.R;
@@ -52,13 +53,6 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-        /*
-        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                snack(recyclerView,"Exemplo de FAB button");
-            }
-        });*/
         return view;
     }
 
@@ -69,8 +63,13 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     }
 
     private void taskCarros(){
-        this.carros = CarroService.getCarros(getContext(),tipo);
-        recyclerView.setAdapter(new CarroAdapter(getContext(),carros,onClickCarro()));
+        try{
+            this.carros = CarroService.getCarros(getContext(),tipo);
+            recyclerView.setAdapter(new CarroAdapter(getContext(),carros,onClickCarro()));
+        }catch(IOException e){
+            Log.e("livro",e.getMessage(),e);
+        }
+
     }
 
     private CarroAdapter.CarrosOnClickListener onClickCarro(){
