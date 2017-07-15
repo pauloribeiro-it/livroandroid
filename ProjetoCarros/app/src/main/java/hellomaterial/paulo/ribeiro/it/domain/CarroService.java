@@ -41,7 +41,7 @@ public class CarroService {
     private static List<Carro> parserXML(Context context, String xml){
         List<Carro> carros = new ArrayList<>();
         Element root  = XMLUtils.getRoot(xml,"UTF-8");
-        List<Node> nodeCarros = XMLUtils.getChildren(root,"root");
+        List<Node> nodeCarros = XMLUtils.getChildren(root,"carro");
         for(Node node:nodeCarros){
             Carro c = new Carro();
             c.nome = XMLUtils.getText(node,"nome");
