@@ -15,6 +15,7 @@ import java.util.List;
 
 import hellomaterial.paulo.ribeiro.it.R;
 import livroandroid.lib.utils.FileUtils;
+import livroandroid.lib.utils.HttpHelper;
 import livroandroid.lib.utils.XMLUtils;
 
 /**
@@ -25,10 +26,14 @@ public class CarroService {
 
     private static final boolean LOG_ON = false;
     private static final String TAG = "CarroService";
+    private static final String URL = "http://www.livroandroid.com.br/livro/carros/carros_{tipo}.json";
 
     public static List<Carro> getCarros(Context context, int tipo) throws IOException{
-        String content = readFile(context,tipo);
-        List<Carro> carros = parserJSON(context,content);//parserXML(context,xml);
+        String tipoString = getTipo(tipo);
+        String url = URL.replace("{tipo}",tipoString);
+        HttpHelper http = new HttpHelper();
+        String json = http.doGet(url);
+        List<Carro> carros = parserJSON(context,json);
         return carros;
     }
 
@@ -99,5 +104,13 @@ public class CarroService {
             Log.d(TAG,carros.size() +" encontrados.");
         }
         return carros;
+    }
+
+    private static String getTipo(int tipo){
+        switch(tipo){
+            case R.string.classicos:return "classicos";
+            case R.string.esportivos: return "esportivos";
+            default: return "luxo";
+        }
     }
 }

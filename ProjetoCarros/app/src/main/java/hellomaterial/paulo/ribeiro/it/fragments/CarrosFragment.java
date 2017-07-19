@@ -1,6 +1,7 @@
 package hellomaterial.paulo.ribeiro.it.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -63,13 +64,7 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     }
 
     private void taskCarros(){
-        try{
-            this.carros = CarroService.getCarros(getContext(),tipo);
-            recyclerView.setAdapter(new CarroAdapter(getContext(),carros,onClickCarro()));
-        }catch(IOException e){
-            Log.e("livro",e.getMessage(),e);
-        }
-
+        new GetCarrosTask().execute();
     }
 
     private CarroAdapter.CarrosOnClickListener onClickCarro(){
@@ -82,5 +77,26 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
                 startActivity(intent);
             }
         };
+    }
+
+    private class GetCarrosTask extends AsyncTask<Void,Void,List<Carro>>{
+        @Override
+        protected List<Carro> doInBackground(Void... params) {
+            try {
+                return CarroService.getCarros(getContext(),tipo);
+            } catch (IOException e) {
+                Log.e("livroandroid",e.getMessage(),e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Carro> carros) {
+            if(carros != null){
+                CarrosFragment.this.carros = carros;
+                recyclerView.setAdapter(new CarroAdapter(getContext(),carros, onClickCarro()));
+            }
+
+        }
     }
 }
