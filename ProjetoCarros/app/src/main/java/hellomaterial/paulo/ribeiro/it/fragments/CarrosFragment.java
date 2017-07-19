@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     private int tipo;
     protected RecyclerView recyclerView;
     private List<Carro> carros;
+    private SwipeRefreshLayout swipeLayout;
 
     public static CarrosFragment newInstance(int tipo){
         Bundle args = new Bundle();
@@ -54,17 +56,23 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
+
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeToRefresh);
+        swipeLayout.setOnRefreshListener(OnRefreshListener());
+        swipeLayout.setColorSchemeResources(R.color.refresh_progress_1,
+                                            R.color.refresh_progress_2,
+                                            R.color.refresh_progress_3);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        taskCarros();
+        taskCarros(false);
     }
 
-    private void taskCarros(){
-        new GetCarrosTask().execute();
+    private void taskCarros(boolean pullToRefresh){
+       startTask("carros",new GetCarrosTask(),pullToRefresh?R.id.swipeToRefresh:R.id.progress);
     }
 
     private CarroAdapter.CarrosOnClickListener onClickCarro(){
@@ -79,24 +87,37 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         };
     }
 
-    private class GetCarrosTask extends AsyncTask<Void,Void,List<Carro>>{
+    private class GetCarrosTask implements TaskListener<List<Carro>>{
         @Override
-        protected List<Carro> doInBackground(Void... params) {
-            try {
-                return CarroService.getCarros(getContext(),tipo);
-            } catch (IOException e) {
-                Log.e("livroandroid",e.getMessage(),e);
-                return null;
-            }
+        public List<Carro> execute() throws Exception {
+            return CarroService.getCarros(getContext(),tipo);
         }
 
         @Override
-        protected void onPostExecute(List<Carro> carros) {
+        public void updateView(List<Carro> carros) {
             if(carros != null){
                 CarrosFragment.this.carros = carros;
-                recyclerView.setAdapter(new CarroAdapter(getContext(),carros, onClickCarro()));
+                recyclerView.setAdapter(new CarroAdapter(getContext(),carros,onClickCarro()));
             }
+        }
+
+        @Override
+        public void onError(Exception exception) {
+            alert("Ocorreu algum erro ao buscar os dados.");
+        }
+
+        @Override
+        public void onCancelled(String cod) {
 
         }
+    }
+
+    private SwipeRefreshLayout.OnRefreshListener OnRefreshListener(){
+        return new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                taskCarros(true);
+            }
+        };
     }
 }
