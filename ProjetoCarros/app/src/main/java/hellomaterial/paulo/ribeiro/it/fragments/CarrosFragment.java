@@ -24,6 +24,7 @@ import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
 import hellomaterial.paulo.ribeiro.it.adapter.CarroAdapter;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroService;
+import livroandroid.lib.utils.AndroidUtils;
 
 public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
 
@@ -116,7 +117,13 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         return new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                taskCarros(true);
+                if(AndroidUtils.isNetworkAvailable(getContext())){
+                    taskCarros(true);
+                }else{
+                    swipeLayout.setRefreshing(false);
+                    snack(recyclerView,R.string.msg_error_conexao_indisponivel);
+                }
+
             }
         };
     }
