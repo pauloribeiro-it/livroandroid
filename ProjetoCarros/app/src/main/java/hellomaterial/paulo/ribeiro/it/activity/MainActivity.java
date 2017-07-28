@@ -10,6 +10,7 @@ import android.view.View;
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.adapter.TabsAdapter;
 import hellomaterial.paulo.ribeiro.it.fragments.AboutDialog;
+import livroandroid.lib.utils.Prefs;
 
 public class MainActivity extends BaseActivity {
 
@@ -26,7 +27,7 @@ public class MainActivity extends BaseActivity {
         setUpToolbar();
         setupNavDrawer();
         setupViewPagerTabs();
-        //replaceFragment(new CarrosTabFragment());
+
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +47,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupViewPagerTabs(){
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new TabsAdapter(getContext(),getSupportFragmentManager()));
 
@@ -54,5 +55,21 @@ public class MainActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
         int cor = ContextCompat.getColor(getContext(),R.color.white);
         tabLayout.setTabTextColors(cor,cor);
+
+        int tabIdx = Prefs.getInteger(getContext(),"tabIdx");
+     //   int teste = Prefs.getInteger(getContext(),"teste");
+        viewPager.setCurrentItem(tabIdx);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {   }
+
+            @Override
+            public void onPageScrollStateChanged(int state) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                Prefs.setInteger(getContext(),"tabIdx",viewPager.getCurrentItem());
+            }
+        });
     }
 }
