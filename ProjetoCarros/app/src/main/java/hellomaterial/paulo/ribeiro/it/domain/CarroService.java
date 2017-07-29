@@ -1,6 +1,7 @@
 package hellomaterial.paulo.ribeiro.it.domain;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -18,6 +19,7 @@ import hellomaterial.paulo.ribeiro.it.R;
 import livroandroid.lib.utils.FileUtils;
 import livroandroid.lib.utils.HttpHelper;
 import livroandroid.lib.utils.IOUtils;
+import livroandroid.lib.utils.SDCardUtils;
 import livroandroid.lib.utils.XMLUtils;
 
 /**
@@ -37,6 +39,7 @@ public class CarroService {
         String json = http.doGet(url);
         List<Carro> carros = parserJSON(context,json);
         salvaArquivoNaMemoriaInterna(context,url,json);
+        salvaArquivoNaMemoriaExterna(context,url,json);
         return carros;
     }
 
@@ -122,5 +125,14 @@ public class CarroService {
         File file = FileUtils.getFile(context,fileName);
         IOUtils.writeString(file,json);
         Log.d(TAG,"Arquivo salvo: "+file);
+    }
+
+    private static void salvaArquivoNaMemoriaExterna(Context context, String url,String json){
+        String fileName = url.substring(url.lastIndexOf("/")+1);
+        File f = SDCardUtils.getPrivateFile(context,fileName, Environment.DIRECTORY_DOWNLOADS);
+        IOUtils.writeString(f,json);
+        Log.d(TAG,"1) Arquivo privado salvo na pasta downloads: "+f);
+        f = SDCardUtils.getPublicFile(fileName,Environment.DIRECTORY_DOWNLOADS);
+        Log.d(TAG,"2) Arquivo público salvo na pasta downloads: "+f);
     }
 }
