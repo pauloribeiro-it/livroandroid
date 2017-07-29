@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
         tabLayout.setTabTextColors(cor,cor);
 
         int tabIdx = Prefs.getInteger(getContext(),"tabIdx");
-     //   int teste = Prefs.getInteger(getContext(),"teste");
+
         viewPager.setCurrentItem(tabIdx);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
             @Override
