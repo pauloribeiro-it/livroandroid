@@ -37,9 +37,12 @@ public class CarroService {
         String url = URL.replace("{tipo}",tipoString);
         HttpHelper http = new HttpHelper();
         String json = http.doGet(url);
-        List<Carro> carros = parserJSON(context,json);
-        salvaArquivoNaMemoriaInterna(context,url,json);
-        salvaArquivoNaMemoriaExterna(context,url,json);
+        List<Carro> carros = getCarrosFromArquivo(context,tipo);
+        if(carros == null || carros.isEmpty()){
+            carros = getCarrosFromWebService(context,tipo);
+        }
+       // salvaArquivoNaMemoriaInterna(context,url,json);
+       // salvaArquivoNaMemoriaExterna(context,url,json);
         return carros;
     }
 
@@ -135,4 +138,32 @@ public class CarroService {
         f = SDCardUtils.getPublicFile(fileName,Environment.DIRECTORY_DOWNLOADS);
         Log.d(TAG,"2) Arquivo público salvo na pasta downloads: "+f);
     }
+
+    public static List<Carro> getCarrosFromArquivo(Context context,int tipo) throws IOException{
+        String tipoString = getTipo(tipo);
+        String fileName = String.format("carros_%s.json",tipoString);
+        Log.d(TAG,"Abrindo arquivo: "+fileName);
+
+        String json = FileUtils.readFile(context,fileName,"UTF-8");
+        if(json == null){
+            Log.d(TAG,"Arquivo "+fileName+" não encontrado");
+            return null;
+        }
+        List<Carro> carros = parserJSON(context,json);
+        Log.d(TAG,"Retornando carros do arquivo "+fileName+".");
+        return carros;
+    }
+
+    public static List<Carro> getCarrosFromWebService(Context context,int tipo) throws IOException{
+        String tipoString = getTipo(tipo);
+        String url = URL.replace("{tipo}",tipoString);
+        Log.d(TAG,"URL: "+url);
+        HttpHelper http = new HttpHelper();
+        String json = http.doGet(url);
+        List<Carro> carros = parserJSON(context,json);
+        salvaArquivoNaMemoriaInterna(context,url,json);
+        return carros;
+    }
+
+
 }
