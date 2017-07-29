@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 import hellomaterial.paulo.ribeiro.it.R;
 import livroandroid.lib.utils.FileUtils;
 import livroandroid.lib.utils.HttpHelper;
+import livroandroid.lib.utils.IOUtils;
 import livroandroid.lib.utils.XMLUtils;
 
 /**
@@ -34,6 +36,7 @@ public class CarroService {
         HttpHelper http = new HttpHelper();
         String json = http.doGet(url);
         List<Carro> carros = parserJSON(context,json);
+        salvaArquivoNaMemoriaInterna(context,url,json);
         return carros;
     }
 
@@ -112,5 +115,12 @@ public class CarroService {
             case R.string.esportivos: return "esportivos";
             default: return "luxo";
         }
+    }
+
+    private static void salvaArquivoNaMemoriaInterna(Context context, String url,String json){
+        String fileName = url.substring(url.lastIndexOf("/")+1);
+        File file = FileUtils.getFile(context,fileName);
+        IOUtils.writeString(file,json);
+        Log.d(TAG,"Arquivo salvo: "+file);
     }
 }
