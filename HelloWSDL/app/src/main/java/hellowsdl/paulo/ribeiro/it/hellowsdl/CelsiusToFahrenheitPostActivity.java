@@ -16,8 +16,8 @@ import livroandroid.lib.utils.HttpHelper;
 import livroandroid.lib.utils.XMLUtils;
 
 public class CelsiusToFahrenheitPostActivity extends AppCompatActivity {
-
-    private String URL = "http://www.w3schools.com/xml/tempconvert.asmx/CelsiusToFahrenheit";
+    
+    private String URL = "https://www.w3schools.com/xml/tempconvert.asmx/CelsiusToFahrenheit";
     private EditText tCelcius;
     private EditText tFahrenheit;
 
@@ -42,7 +42,6 @@ public class CelsiusToFahrenheitPostActivity extends AppCompatActivity {
 
                     final String fahrenheit = XMLUtils.getText(root);
                     runOnUiThread(new Runnable() {
-                        @Override
                         public void run() {
                             tFahrenheit.setText(fahrenheit);
                         }
