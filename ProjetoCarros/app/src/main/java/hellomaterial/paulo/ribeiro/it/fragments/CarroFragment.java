@@ -3,14 +3,13 @@ package hellomaterial.paulo.ribeiro.it.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
-
-import org.parceler.Parcels;
-
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 
@@ -25,6 +24,7 @@ public class CarroFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_carro,container,false);
         carro = getArguments().getParcelable("carro");
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -34,5 +34,29 @@ public class CarroFragment extends BaseFragment {
         setTextString(R.id.tDesc,carro.desc);
         final ImageView imgView = (ImageView) getView().findViewById(R.id.img);
         Picasso.with(getContext()).load(carro.urlFoto).fit().into(imgView);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_frag_carro,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.ic_action_edit){
+            toast("Editar: "+carro.nome);
+            return true;
+        }else if(item.getItemId() == R.id.ic_action_delete){
+            toast("Deletar: "+carro.nome);
+            return true;
+        }else if(item.getItemId() == R.id.ic_action_share){
+            toast("Compartilhar");
+        }else if(item.getItemId() == R.id.ic_action_maps){
+            toast("Mapa");
+        }else if(item.getItemId() == R.id.ic_action_video){
+            toast("Vídeo");
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
