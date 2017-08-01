@@ -140,4 +140,16 @@ public class CarroDB extends SQLiteOpenHelper{
             db.close();
         }
     }
+
+    public int deleteCarrosByTipo(String tipo) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            // delete from carro where _id=?
+            int count = db.delete("carro", "tipo=?", new String[]{tipo});
+            Log.i(TAG, "Deletou [" + count + "] registros");
+            return count;
+        } finally {
+            db.close();
+        }
+    }
 }

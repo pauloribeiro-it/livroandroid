@@ -32,12 +32,12 @@ public class CarroService {
     private static final String TAG = "CarroService";
     private static final String URL = "http://www.livroandroid.com.br/livro/carros/carros_{tipo}.json";
 
-    public static List<Carro> getCarros(Context context, int tipo) throws IOException{
+    public static List<Carro> getCarros(Context context, int tipo,boolean refresh) throws IOException{
         String tipoString = getTipo(tipo);
         String url = URL.replace("{tipo}",tipoString);
         HttpHelper http = new HttpHelper();
         String json = http.doGet(url);
-        List<Carro> carros = getCarrosFromArquivo(context,tipo);
+        List<Carro> carros = !refresh?getCarrosFromBanco(context,tipo):null;
         if(carros == null || carros.isEmpty()){
             carros = getCarrosFromWebService(context,tipo);
         }
@@ -161,9 +161,34 @@ public class CarroService {
         HttpHelper http = new HttpHelper();
         String json = http.doGet(url);
         List<Carro> carros = parserJSON(context,json);
-        salvaArquivoNaMemoriaInterna(context,url,json);
+        salvarCarros(context,tipo,carros);
         return carros;
     }
 
+    public static List<Carro> getCarrosFromBanco(Context context,int tipo) throws IOException{
+        CarroDB db = new CarroDB(context);
+        try{
+            String tipoString = getTipo(tipo);
+            List<Carro> carros = db.findAllByTipo(tipoString);
+            Log.d(TAG,"Retornando "+carros.size()+" carros["+tipoString+"] do banco");
+            return carros;
+        }finally{
+            db.close();
+        }
+    }
 
+    private static void salvarCarros(Context context,int tipo,List<Carro> carros){
+        CarroDB db = new CarroDB(context);
+        try{
+            String tipoString = getTipo(tipo);
+            db.deleteCarrosByTipo(tipoString);
+            for(Carro c:carros){
+                c.tipo = tipoString;
+                Log.d(TAG,"Salvando o carro: "+c.nome);
+                db.save(c);
+            }
+        }finally {
+            db.close();
+        }
+    }
 }

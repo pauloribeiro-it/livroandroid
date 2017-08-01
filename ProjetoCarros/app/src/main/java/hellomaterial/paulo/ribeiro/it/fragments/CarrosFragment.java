@@ -73,7 +73,7 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     }
 
     private void taskCarros(boolean pullToRefresh){
-       startTask("carros",new GetCarrosTask(),pullToRefresh?R.id.swipeToRefresh:R.id.progress);
+       startTask("carros",new GetCarrosTask(pullToRefresh),pullToRefresh?R.id.swipeToRefresh:R.id.progress);
     }
 
     private CarroAdapter.CarrosOnClickListener onClickCarro(){
@@ -89,9 +89,13 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     }
 
     private class GetCarrosTask implements TaskListener<List<Carro>>{
+        private boolean refresh;
+        public GetCarrosTask(boolean refresh){
+            this.refresh = refresh;
+        }
         @Override
         public List<Carro> execute() throws Exception {
-            return CarroService.getCarros(getContext(),tipo);
+            return CarroService.getCarros(getContext(),tipo,refresh);
         }
 
         @Override
