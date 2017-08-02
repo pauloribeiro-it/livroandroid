@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 public class Carro implements Parcelable{
-
+    private static final long serialVersionUID = 6601006766832473959L;
     public long id;
     public String tipo;
     public String nome;

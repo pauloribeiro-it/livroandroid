@@ -41,7 +41,7 @@ public class EditarCarroDialog extends DialogFragment {
         EditarCarroDialog frag = new EditarCarroDialog();
         frag.callback = callBack;
         Bundle args = new Bundle();
-        args.putParcelable("carro", Parcels.wrap(carro));
+        args.putParcelable("carro", carro);
         frag.setArguments(args);
         frag.show(ft,"editar_carro");
 
@@ -63,11 +63,11 @@ public class EditarCarroDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_editar_carro,container,false);
         view.findViewById(R.id.btAtualizar).setOnClickListener(onClickAtualizar());
         tNome = (TextView) view.findViewById(R.id.tNome);
-        this.carro = Parcels.unwrap(getArguments().getParcelable("carro"));
+        this.carro = getArguments().getParcelable("carro");
         if(carro != null){
             tNome.setText(carro.nome);
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     private View.OnClickListener onClickAtualizar(){
