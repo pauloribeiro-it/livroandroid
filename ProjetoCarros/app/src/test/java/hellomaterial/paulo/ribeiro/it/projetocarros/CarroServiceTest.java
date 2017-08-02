@@ -15,7 +15,7 @@ import hellomaterial.paulo.ribeiro.it.domain.CarroService;
 
 public class CarroServiceTest extends AndroidTestCase {
     public void testGetCarros()throws IOException{
-        List<Carro> carros = CarroService.getCarros(getContext(), R.string.esportivos);
+        List<Carro> carros = CarroService.getCarros(getContext(), R.string.esportivos,true);
         assertNotNull(carros);
         assertTrue(carros.size() == 0);
 

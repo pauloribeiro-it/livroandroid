@@ -1,6 +1,7 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -33,5 +34,10 @@ public class CarroActivity extends BaseActivity {
     @Override
     protected boolean chamaReplace() {
         return false;
+    }
+
+    public void setTitle(String s){
+        CollapsingToolbarLayout c = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        c.setTitle(s);
     }
 }

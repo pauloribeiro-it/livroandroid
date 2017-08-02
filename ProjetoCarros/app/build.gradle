@@ -32,7 +32,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:preference-v7:25.0.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+ //   compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.0.0'
     compile 'br.com.livroandroid:android-utils:1.0.5'
     compile 'com.android.support:support-v4:25.0.0'

@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import hellomaterial.paulo.ribeiro.it.R;
+import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
+import hellomaterial.paulo.ribeiro.it.domain.CarroDB;
+import hellomaterial.paulo.ribeiro.it.fragments.dialog.EditarCarroDialog;
 
 /**
  * Created by paulo on 05/07/17.
@@ -45,7 +48,18 @@ public class CarroFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.ic_action_edit){
-            toast("Editar: "+carro.nome);
+            //toast("Editar: "+carro.nome);
+            EditarCarroDialog.show(getFragmentManager(),carro, new EditarCarroDialog.Callback(){
+                @Override
+                public void onCarroUpdated(Carro carro) {
+                    toast("Carro ["+carro.nome+"] atualizado");
+                    CarroDB db = new CarroDB(getContext());
+                    db.save(carro);
+
+                    CarroActivity a = (CarroActivity) getActivity();
+                    a.setTitle(carro.nome);
+                }
+            });
             return true;
         }else if(item.getItemId() == R.id.ic_action_delete){
             toast("Deletar: "+carro.nome);
