@@ -20,6 +20,7 @@ public class Carro implements Parcelable{
     public String urlVideo;
     public String latitude;
     public String longitude;
+    public boolean selected;
 
     @Override
     public int describeContents() {

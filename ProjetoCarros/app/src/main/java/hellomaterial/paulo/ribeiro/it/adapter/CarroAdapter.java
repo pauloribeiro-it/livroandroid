@@ -72,10 +72,26 @@ public class CarroAdapter extends RecyclerView.Adapter<CarroAdapter.CarrosViewHo
                 }
             });
         }
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                carroOnClickListener.onLongClickCarro(holder.itemView,position);
+                return true;
+            }
+        });
+
+        int corFundo = context.getResources().getColor(c.selected?R.color.primary:R.color.white);
+        holder.cardView.setCardBackgroundColor(corFundo);
+
+        int corFonte = context.getResources().getColor(c.selected?R.color.white:R.color.primary);
+        holder.tNome.setTextColor(corFonte);
     }
+
 
     public interface CarrosOnClickListener{
         void onClickCarro(View view, int idx);
+        void onLongClickCarro(View view, int idx);
     }
 
     public static class CarrosViewHolder extends RecyclerView.ViewHolder{

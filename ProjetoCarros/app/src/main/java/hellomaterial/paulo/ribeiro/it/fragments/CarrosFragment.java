@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hellomaterial.paulo.ribeiro.it.CarrosApplication;
@@ -30,6 +35,7 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     protected RecyclerView recyclerView;
     private List<Carro> carros;
     private SwipeRefreshLayout swipeLayout;
+    private ActionMode actionMode;
 
     public static CarrosFragment newInstance(int tipo){
         Bundle args = new Bundle();
@@ -80,11 +86,55 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
             @Override
             public void onClickCarro(View view, int idx) {
                 Carro c = carros.get(idx);
-                Intent intent = new Intent(getContext(), CarroActivity.class);
-                intent.putExtra("carro", c);
-                startActivity(intent);
+                if(actionMode == null){
+                    Intent intent = new Intent(getContext(), CarroActivity.class);
+                    intent.putExtra("carro", c);
+                    startActivity(intent);
+                }else{
+                    c.selected = !c.selected;
+                    updateActionModeTitle();
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onLongClickCarro(View view, int idx) {
+                if(actionMode != null){
+                    return;
+                }
+
+                actionMode = getAppCompatActivity().startSupportActionMode(getActionModeCallback());
+                Carro c = carros.get(idx);
+                c.selected = true;
+                recyclerView.getAdapter().notifyDataSetChanged();
+                updateActionModeTitle();
+//                toast("Clicou e segurou: "+c.nome);
             }
         };
+    }
+
+    private void updateActionModeTitle(){
+        if(actionMode != null){
+            actionMode.setTitle("Selecione os carros.");
+            actionMode.setSubtitle(null);
+            List<Carro> selectedCarros = getSelectedCarros();
+            if(selectedCarros.size() == 1){
+                actionMode.setSubtitle("1 carro selecionado");
+            }else if(selectedCarros.size() > 1){
+                actionMode.setSubtitle(selectedCarros.size()+" carros selecionados");
+            }
+        }
+    }
+
+    private List<Carro> getSelectedCarros(){
+        List<Carro> list = new ArrayList<>();
+        for(Carro c:carros){
+            if(c.selected){
+                list.add(c);
+            }
+        }
+        return list;
     }
 
     private class GetCarrosTask implements TaskListener<List<Carro>>{
@@ -140,5 +190,43 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
     @Subscribe
     public void onBusAtualizar(String refresh){
         taskCarros(false);
+    }
+
+    private ActionMode.Callback getActionModeCallback(){
+        return new ActionMode.Callback(){
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = getActivity().getMenuInflater();
+                inflater.inflate(R.menu.menu_frag_carros_context,menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                List<Carro> selectedCarros = getSelectedCarros();
+                if(item.getItemId() == R.id.ic_action_delete){
+                    toast("Remover "+selectedCarros);
+                }else if(item.getItemId() == R.id.ic_action_share){
+                    toast("Compartilhar "+selectedCarros);
+                }
+
+                mode.finish();
+                return true;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                actionMode = null;
+                for(Carro c:carros){
+                    c.selected = false;
+                }
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+        };
     }
 }
