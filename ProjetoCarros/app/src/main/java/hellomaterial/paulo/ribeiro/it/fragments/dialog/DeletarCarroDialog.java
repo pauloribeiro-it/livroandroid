@@ -54,6 +54,6 @@ public class DeletarCarroDialog extends DialogFragment {
         builder.setMessage("Deletar esse carro?");
         builder.setPositiveButton("Sim",dialogClickListener);
         builder.setNegativeButton("Não",dialogClickListener);
-        return super.onCreateDialog(savedInstanceState);
+        return builder.create();
     }
 }

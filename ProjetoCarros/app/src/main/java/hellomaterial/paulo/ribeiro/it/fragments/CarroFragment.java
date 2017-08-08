@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
+
+import hellomaterial.paulo.ribeiro.it.CarrosApplication;
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroDB;
+import hellomaterial.paulo.ribeiro.it.fragments.dialog.DeletarCarroDialog;
 import hellomaterial.paulo.ribeiro.it.fragments.dialog.EditarCarroDialog;
 
 /**
@@ -48,7 +51,6 @@ public class CarroFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.ic_action_edit){
-            //toast("Editar: "+carro.nome);
             EditarCarroDialog.show(getFragmentManager(),carro, new EditarCarroDialog.Callback(){
                 @Override
                 public void onCarroUpdated(Carro carro) {
@@ -58,11 +60,20 @@ public class CarroFragment extends BaseFragment {
 
                     CarroActivity a = (CarroActivity) getActivity();
                     a.setTitle(carro.nome);
+                    CarrosApplication.getInstance().getBus().post("refresh");
                 }
             });
             return true;
         }else if(item.getItemId() == R.id.ic_action_delete){
-            toast("Deletar: "+carro.nome);
+            DeletarCarroDialog.show(getFragmentManager(),new DeletarCarroDialog.Callback(){
+                public void onClickYes() {
+                    toast("Carro ["+carro.nome+"] deletado.");
+                    CarroDB db = new CarroDB(getActivity());
+                    db.delete(carro);
+                    getActivity().finish();
+                    CarrosApplication.getInstance().getBus().post("refresh");
+                }
+            });
             return true;
         }else if(item.getItemId() == R.id.ic_action_share){
             toast("Compartilhar");

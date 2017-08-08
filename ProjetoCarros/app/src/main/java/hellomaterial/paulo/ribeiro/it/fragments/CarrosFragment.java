@@ -1,24 +1,22 @@
 package hellomaterial.paulo.ribeiro.it.fragments;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import org.parceler.Parcels;
+import com.squareup.otto.Subscribe;
 
-import java.io.IOException;
 import java.util.List;
 
+import hellomaterial.paulo.ribeiro.it.CarrosApplication;
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
 import hellomaterial.paulo.ribeiro.it.adapter.CarroAdapter;
@@ -47,6 +45,7 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         if(getArguments() != null){
             this.tipo = getArguments().getInt("tipo");
         }
+        CarrosApplication.getInstance().getBus().register(this);
     }
 
     @Override
@@ -130,5 +129,16 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
 
             }
         };
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CarrosApplication.getInstance().getBus().unregister(this);
+    }
+
+    @Subscribe
+    public void onBusAtualizar(String refresh){
+        taskCarros(false);
     }
 }

@@ -1,5 +1,6 @@
 package hellomaterial.paulo.ribeiro.it.activity;
 
+import android.app.backup.BackupManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -13,10 +14,13 @@ import hellomaterial.paulo.ribeiro.it.fragments.AboutDialog;
 import livroandroid.lib.utils.Prefs;
 
 public class MainActivity extends BaseActivity {
+    private BackupManager backupManager;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
+        backupManager = new BackupManager(getContext());
         return true;
     }
 
@@ -69,6 +73,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 Prefs.setInteger(getContext(),"tabIdx",viewPager.getCurrentItem());
+                backupManager.dataChanged();
             }
         });
     }
