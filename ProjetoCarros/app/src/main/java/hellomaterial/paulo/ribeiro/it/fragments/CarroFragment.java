@@ -2,6 +2,7 @@ package hellomaterial.paulo.ribeiro.it.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+
 import com.squareup.picasso.Picasso;
 
 import hellomaterial.paulo.ribeiro.it.CarrosApplication;
@@ -18,6 +21,7 @@ import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroDB;
 import hellomaterial.paulo.ribeiro.it.fragments.dialog.DeletarCarroDialog;
 import hellomaterial.paulo.ribeiro.it.fragments.dialog.EditarCarroDialog;
+import livroandroid.lib.utils.IntentUtils;
 
 /**
  * Created by paulo on 05/07/17.
@@ -31,6 +35,12 @@ public class CarroFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_carro,container,false);
         carro = getArguments().getParcelable("carro");
         setHasOptionsMenu(true);
+        view.findViewById(R.id.imgPlayVideo).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showVideo(carro.urlVideo,v);
+            }
+        });
         return view;
     }
 
@@ -80,8 +90,31 @@ public class CarroFragment extends BaseFragment {
         }else if(item.getItemId() == R.id.ic_action_maps){
             toast("Mapa");
         }else if(item.getItemId() == R.id.ic_action_video){
-            toast("Vídeo");
+            final String url = carro.urlVideo;
+            View menuItemView = getActivity().findViewById(item.getItemId());
+            if(menuItemView != null && url != null){
+                    showVideo(url,menuItemView);
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showVideo(final String url, View ancoraView){
+        if(url != null && ancoraView != null){
+            PopupMenu popupMenu = new PopupMenu(getActionBar().getThemedContext(),ancoraView);
+            popupMenu.inflate(R.menu.menu_popup_video);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId() == R.id.action_video_browser){
+                        IntentUtils.openBrowser(getContext(),url);
+                    }else if(item.getItemId() == R.id.action_video_player){
+                        IntentUtils.showVideo(getContext(),url);
+                    }else if(item.getItemId() == R.id.action_video_videoview){}
+                    return true;
+                }
+            });
+            popupMenu.show();
+        }
     }
 }

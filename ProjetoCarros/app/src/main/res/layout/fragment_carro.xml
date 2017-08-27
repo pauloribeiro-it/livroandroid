@@ -79,6 +79,14 @@
                 android:alpha="0.5"
                 android:src="@drawable/play"/>
          </FrameLayout>
+
+         <ImageView
+             android:id="@+id/imgPlayVideo"
+             android:layout_width="100dp"
+             android:layout_height="100dp"
+             android:layout_gravity="center"
+             android:alpha="0.5"
+             android:src="@drawable/play" />
          <TextView
              android:id="@+id/tVideo"
              android:layout_width="wrap_content"

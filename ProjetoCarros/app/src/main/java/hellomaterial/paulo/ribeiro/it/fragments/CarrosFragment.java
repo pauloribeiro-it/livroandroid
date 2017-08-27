@@ -159,7 +159,7 @@ public class CarrosFragment extends livroandroid.lib.fragment.BaseFragment {
         }
         @Override
         public List<Carro> execute() throws Exception {
-            return CarroService.getCarros(getContext(),tipo,refresh);
+            return CarroService.getCarros(getContext(),tipo,refresh=true);
         }
 
         @Override
