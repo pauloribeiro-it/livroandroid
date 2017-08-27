@@ -1,5 +1,6 @@
 package hellomaterial.paulo.ribeiro.it.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
@@ -14,9 +15,12 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import hellomaterial.paulo.ribeiro.it.CarrosApplication;
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
+import hellomaterial.paulo.ribeiro.it.activity.VideoActivity;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroDB;
 import hellomaterial.paulo.ribeiro.it.fragments.dialog.DeletarCarroDialog;
@@ -110,7 +114,11 @@ public class CarroFragment extends BaseFragment {
                         IntentUtils.openBrowser(getContext(),url);
                     }else if(item.getItemId() == R.id.action_video_player){
                         IntentUtils.showVideo(getContext(),url);
-                    }else if(item.getItemId() == R.id.action_video_videoview){}
+                    }else if(item.getItemId() == R.id.action_video_videoview){
+                        Intent intent = new Intent(getContext(), VideoActivity.class);
+                        intent.putExtra("carro", carro);
+                        startActivity(intent);
+                    }
                     return true;
                 }
             });

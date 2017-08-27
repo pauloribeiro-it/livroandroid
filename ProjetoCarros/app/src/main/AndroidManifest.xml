@@ -63,15 +63,24 @@
         </activity>
         <activity android:name=".activity.CarrosIntentActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="carros"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="carros" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.PICK"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="carros"/>
+                <action android:name="android.intent.action.PICK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="carros" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.VideoActivity"
+            android:parentActivityName=".activity.CarroActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.CarroActivity"/>
         </activity>
     </application>
 
