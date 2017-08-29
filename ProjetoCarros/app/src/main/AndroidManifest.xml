@@ -21,7 +21,8 @@
     <!-- Chave de acesso (API Key) criada na página de Console. -->
     <meta-data
         android:name="com.google.android.maps.v2.API_KEY"
-        android:value="@string/API_KEY" />
+        android:value="AIzaSyB7yRwmzba5a-hZuUS9QxJuGfmqrBaDbys" />
+
     <application
         android:name=".CarrosApplication"
         android:allowBackup="true"
@@ -92,8 +93,14 @@
                 <data android:scheme="carros" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.VideoActivity"
+        <activity
+            android:name=".activity.VideoActivity"
             android:parentActivityName=".activity.CarroActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.CarroActivity" />
+        </activity>
+        <activity android:name=".activity.MapaActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.CarroActivity"/>
         </activity>

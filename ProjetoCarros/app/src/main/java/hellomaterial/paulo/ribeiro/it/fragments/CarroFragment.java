@@ -20,6 +20,7 @@ import org.parceler.Parcels;
 import hellomaterial.paulo.ribeiro.it.CarrosApplication;
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
+import hellomaterial.paulo.ribeiro.it.activity.MapaActivity;
 import hellomaterial.paulo.ribeiro.it.activity.VideoActivity;
 import hellomaterial.paulo.ribeiro.it.domain.Carro;
 import hellomaterial.paulo.ribeiro.it.domain.CarroDB;
@@ -92,7 +93,9 @@ public class CarroFragment extends BaseFragment {
         }else if(item.getItemId() == R.id.ic_action_share){
             toast("Compartilhar");
         }else if(item.getItemId() == R.id.ic_action_maps){
-            toast("Mapa");
+            Intent intent = new Intent(getContext(), MapaActivity.class);
+            intent.putExtra("carro",carro);
+            startActivity(intent);
         }else if(item.getItemId() == R.id.ic_action_video){
             final String url = carro.urlVideo;
             View menuItemView = getActivity().findViewById(item.getItemId());
