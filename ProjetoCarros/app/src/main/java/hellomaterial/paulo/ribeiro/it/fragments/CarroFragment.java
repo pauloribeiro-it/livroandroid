@@ -11,12 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-
 import com.squareup.picasso.Picasso;
-
-import org.parceler.Parcels;
-
 import hellomaterial.paulo.ribeiro.it.CarrosApplication;
 import hellomaterial.paulo.ribeiro.it.R;
 import hellomaterial.paulo.ribeiro.it.activity.CarroActivity;
@@ -55,6 +50,10 @@ public class CarroFragment extends BaseFragment {
         setTextString(R.id.tDesc,carro.desc);
         final ImageView imgView = (ImageView) getView().findViewById(R.id.img);
         Picasso.with(getContext()).load(carro.urlFoto).fit().into(imgView);
+        setTextString(R.id.tLatLng,String.format("Lat/Lng: %s/%s",carro.latitude,carro.longitude));
+        MapaFragment mapaFragment = new MapaFragment();
+        mapaFragment.setArguments(getArguments());
+        getChildFragmentManager().beginTransaction().replace(R.id.mapFragment,mapaFragment).commit();
     }
 
     @Override
