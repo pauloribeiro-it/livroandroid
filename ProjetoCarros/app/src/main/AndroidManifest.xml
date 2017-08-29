@@ -29,7 +29,7 @@
         <!-- Chave de acesso (API Key) criada na página de Console. -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBGO70fDqTmNBg4JkJJWEgqVEb7Wn_j7-U" />
+            android:value="AIzaSyB08KnA-LfJZ9bkmynGXYHPYRcnOe8EIdg" />
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTop"
