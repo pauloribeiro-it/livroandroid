@@ -37,7 +37,14 @@ Versao %s<br><br>
     <string name="mapa">Mapa</string>
     <string name="msg_alerta_permissao">Para utilizar este aplicativo, você precisa aceitar as permissões.</string>
     <string name="msg_error_conexao_indisponivel">Conexão indisponível. Verifique seu Wi-Fi ou 3G.</string>
-
+    <string name="mapa_normal">Modo Normal</string>
+    <string name="mapa_satelite">Modo Satélite</string>
+    <string name="mapa_terreno">Modo Terreno</string>
+    <string name="mapa_hibrido">Modo Híbrido</string>
+    <string name="mapa_location_directions">Direções</string>
+    <string name="mapa_location_carro">Localização do Carro</string>
+    <string name="mapa_zoom_in">Zoom (+)</string>
+    <string name="mapa_zoom_out">Zoom (-)</string>
     <!-- N -->
     <string name="nav_drawer_username">Ricardo Lecheta</string>
     <string name="nav_drawer_email">rlecheta@gmail.com</string>
